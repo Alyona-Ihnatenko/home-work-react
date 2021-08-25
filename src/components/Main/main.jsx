@@ -1,7 +1,10 @@
+import { Section } from '../Section/Section';
+import { Title } from '../Title/Title';
 function Main() {
   return (
     <div>
-      <p> Main </p>
+      <Title title="Информация об университете" />
+      <Section />
     </div>
   );
 }

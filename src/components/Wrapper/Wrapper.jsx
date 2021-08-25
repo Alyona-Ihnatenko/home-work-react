@@ -1,4 +1,4 @@
-import { Main } from '../Main/main';
+import { Main } from '../Main/Main';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { Menu } from '../Menu/Menu';
 import css from '../Wrapper/Wrapper.module.css';
@@ -8,7 +8,6 @@ function Wrapper() {
     <div className={css.wrapper}>
       <Sidebar />
       <Main />
-      <Menu />
     </div>
   );
 }

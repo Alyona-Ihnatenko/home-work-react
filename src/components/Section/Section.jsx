@@ -1,6 +1,8 @@
 import React from 'react';
-
+import { Form } from '../Form/Form';
 import { Button } from '../Button/Button';
+import { Title } from '../Title/Title';
+import { Card } from '../Card/Card';
 
 class Section extends React.Component {
   constructor(props) {
@@ -8,48 +10,54 @@ class Section extends React.Component {
     this.state = {
       counter: 0,
       showed: false,
-      showed2: false,
+      cities: [],
     };
   }
-
+  handleRemove = c => {
+    this.setState({
+      cities: this.state.cities.filter(city => city !== c),
+    });
+  };
   render() {
+    const { cities, showed } = this.state;
     return (
       <div>
-        <p>{this.state.counter}</p>
+        {cities.length ? <Title title="Города" /> : null}
+        {cities.map(city => {
+          return (
+            <Card
+              key={city}
+              buttonName="Удалить"
+              name={city}
+              handleClick={this.handleRemove}
+            />
+          );
+        })}
+        {showed && (
+          <Form
+            onSubmit={city => {
+              console.log('data', city);
+              this.setState(prevState => ({
+                cities: [...prevState.cities, city],
+              }));
+            }}
+          />
+        )}
         <Button
           onClick={() => {
-            for (let i = 0; i < 10; i++) {
-              console.log('usual clicked', this.state.counter);
-
-              this.setState(prevState => {
-                console.log('prev state clicked', prevState.counter);
-
-                return { counter: prevState.counter + 1 };
-              });
-            }
-          }}
-          buttonName="Увеличить"
-        />
-
-        <p>
-          {this.state.showed ? 'Форма для добавления города 1' : 'Нет формы'}
-        </p>
-        <Button
-          onClick={() => {
-            console.log('clicked 1');
             this.setState({ showed: !this.state.showed });
           }}
-          buttonName="Добавить город 1"
+          buttonName="Добавить город "
         />
 
-        {this.state.showed2 && <p>Форма для добавления города 2</p>}
+        {/* {this.state.showed2 && <p>Форма для добавления города 2</p>}
         <Button
           onClick={() => {
             console.log('clicked 2');
             this.setState({ showed2: true });
           }}
           buttonName="Добавить город 2"
-        />
+        /> */}
       </div>
     );
   }
